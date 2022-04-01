@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoApp</title>
+</head>
+<body style="margin: 0">
+<div style="display:flex; justify-content: center; align-items:center; background-color: #CCFFFF; height: 100vh">
+    <div style="width: 600px; margin:0 auto; background-color: #fff; text-align: center">
+
+        <h1 style="color: blue">TodoList</h1>
+
+        <h3>マイタスク</h3>
+        <form method="post" th:action="@{/update}" th:each="todo : ${todos}">
+            <input type="checkbox" name="done_flg" value="1"/>
+            <input type="hidden" name="id" th:value="${todo.id}"/>
+            <input type="text" name="title" th:value="${todo.title}"/>
+            <input type="date" name="time_limit" th:value="${todo.time_limit}"/>
+            <input type="submit" value="更新"/>
+        </form>
+
+        <h3>完了済み</h3>
+        <form method="post" th:action="@{/update}" th:each="todo : ${doneTodos}">
+            <input type="checkbox" name="done_flg" value="1"/>
+            <input type="hidden" name="id" th:value="${todo.id}"/>
+            <input type="text" name="title" th:value="${todo.title}" style="text-decoration:line-through"/>
+            <input type="date" name="time_limit" th:value="${todo.time_limit}"/>
+            <input type="submit" value="更新"/>
+        </form>
+
+        <h3>新しいタスクを追加</h3>
+        <form method="post" th:action="@{/add}">
+            <input type="text" name="title"/>
+            <input type="date" name="time_limit"/>
+            <input type="submit" value="追加"/>
+        </form>
+
+        <form method="post" th:action="@{/delete}">
+            <input type="submit" value="完了済みを削除"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>
